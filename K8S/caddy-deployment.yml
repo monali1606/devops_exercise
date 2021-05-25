@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-caddy-service
+spec:
+  selector:
+    app: my-caddy
+  ports:
+  - protocol: "TCP"
+    port: 443
+    targetPort: 443
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-caddy
+spec:
+  selector:
+    matchLabels:
+      app: my-caddy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-caddy
+    spec:
+      containers:
+      - name: my-caddy
+        image: mycaddy:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 443
+

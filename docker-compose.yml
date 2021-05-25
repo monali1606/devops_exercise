@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  containera:
+    image: mycaddy
+    restart: 'always'
+    ports:
+      - "80:80"
+      - "443:443"
+    deploy:
+      mode: replicated
+      replicas: 1
+  
+  containerb:
+    image: mypythonapp
+    restart: 'always'
+    ports:
+      - "5000:5000"
+    deploy:
+      mode: replicated
+      replicas: 1
